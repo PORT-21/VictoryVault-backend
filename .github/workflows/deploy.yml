@@ -1,0 +1,55 @@
+##### ONLY FOR VICTORY VAULT#####
+##### CREATE AND WRITE BY nomad #####
+
+name: Build and Deploy image to Server
+on:
+  push:
+    branches:
+      - add-ci
+
+jobs:
+  build-deploy:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+#### This is simple github ci/cd uses only ssh for deploy
+    - name: Remove old
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          rm -rf /home/hackaton/project/*
+
+
+    - name: Deploy Project to Server
+      uses: easingthemes/ssh-deploy@v2.2.15
+      with:
+        server: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        source: .
+        target: /home/hackaton/project/
+
+
+    - name: Build
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          cd /home/hackaton/project/
+          if [ ! "$(docker ps -q -f name=victory-backend)" ]; then docker stop victory-backend && docker rm victory-backend fi      
+          docker build --tag victory-backend:latest .
+          docker create --ip 172.17.0.20 --name victory-backend --restart unless-stopped --publish=0.0.0.0:14431:14431/tcp victory-backend:latest
+          docker start victory-backend
+
+
+
+

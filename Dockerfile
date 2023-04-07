@@ -1,4 +1,5 @@
-FROM python:3.10-slim-buster
+FROM python:3.10.11-slim-bullseye
+EXPOSE 14431
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -9,10 +10,11 @@ RUN apt-get update && \
     apt-get purge -y --auto-remove -o APT:AutoRemove:RecommendsImportant=false && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./ requirements.txt
+COPY ./requirements.txt /app
 
-RUN pip install -r requirements.txt
+RUN pip install -r /apprequirements.txt
 
-COPY ./ /app/
-
+COPY /home/hackaton/project /app
+ 
+CMD ["gunicorn", "--bind", ":14431", "--workers", "4", "main:app", "-k", "uvicorn.workers.UvicornWorker"]
 
