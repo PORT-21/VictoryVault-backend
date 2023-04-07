@@ -40,7 +40,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNSSH_PRIVATE_KEYAME }}
+        username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
           if [ $(docker inspect -f '{{.State.Running}}' victory-backend) = "true" ]; then docker stop victory-backend && docker rm -f victory-backend; else echo Container victory-backend has already been stopped; fi
@@ -50,7 +50,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNSSH_PRIVATE_KEYAME }}
+        username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
          docker build --tag victory-backend:latest /home/hackaton/project/Dockerfile.back
@@ -60,7 +60,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNSSH_PRIVATE_KEYAME }}
+        username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
           docker create --ip 172.17.0.20 --name victory-backend --restart unless-stopped --publish=0.0.0.0:14431:14431/tcp victory-backend:latest && docker start victory-backend
