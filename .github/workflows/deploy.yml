@@ -53,7 +53,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
-         docker build --tag victory-backend:latest -f /home/hackaton/project/Dockerfile.back .
+         cd /home/hackaton/project && docker build --tag victory-backend:latest -f Dockerfile.back .
 
 
     - name: Deploy
