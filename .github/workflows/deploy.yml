@@ -29,10 +29,9 @@ jobs:
     - name: Deploy Project to Server
       uses: easingthemes/ssh-deploy@main
       with:
-        server: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        port: 22
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.SSH_HOST }}
+        REMOTE_USER: ${{ secrets.SSH_USERNAME }}
         source: .
         target: /home/hackaton/project/
 
@@ -41,7 +40,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
+        username: ${{ secrets.SSH_USERNSSH_PRIVATE_KEYAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
           cd /home/hackaton/project/
