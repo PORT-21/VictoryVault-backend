@@ -43,10 +43,10 @@ jobs:
         username: ${{ secrets.SSH_USERNSSH_PRIVATE_KEYAME }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
-          cd /home/hackaton/project/
-          if [ ! "$(docker ps -q -f name=victory-backend)" ]; then docker stop victory-backend && docker rm victory-backend fi      
-          docker build --tag victory-backend:latest .
-          docker create --ip 172.17.0.20 --name victory-backend --restart unless-stopped --publish=0.0.0.0:14431:14431/tcp victory-backend:latest
+          cd /home/hackaton/project/ &&
+          if [ $(docker inspect -f '{{.State.Running}}' victory-backend) = "true" ]; then docker stop victory-backend && docker rm -f victory-backend; else echo Container victory-backend has already been stopped; fi &&     
+          docker build --tag victory-backend:latest . &&
+          docker create --ip 172.17.0.20 --name victory-backend --restart unless-stopped --publish=0.0.0.0:14431:14431/tcp victory-backend:latest &&
           docker start victory-backend
 
 
