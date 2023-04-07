@@ -27,7 +27,7 @@ jobs:
 
 
     - name: Deploy Project to Server
-      uses: easingthemes/ssh-deploy@master
+      uses: easingthemes/ssh-deploy@main
       with:
         server: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
