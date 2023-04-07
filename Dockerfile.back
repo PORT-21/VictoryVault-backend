@@ -12,9 +12,9 @@ RUN apt-get update && \
 
 COPY ./requirements.txt /app
 
-RUN pip install -r /apprequirements.txt
+RUN pip install -r requirements.txt
 
-COPY /home/hackaton/project /app
+COPY /home/hackaton/project/app /app
  
 CMD ["gunicorn", "--bind", ":14431", "--workers", "4", "main:app", "-k", "uvicorn.workers.UvicornWorker"]
 
