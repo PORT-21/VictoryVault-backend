@@ -1,0 +1,9 @@
+type: object
+allOf:
+  - $ref: './AchivmentProperties.yaml'
+  - required:
+    - description
+    - title
+properties:
+  icon_link:
+    type: string

@@ -1,0 +1,16 @@
+UserSchema:
+  type: object
+  required:
+    - login
+    - password
+  properties:
+    id:
+      type: integer
+    login:
+      type: string
+    password:
+      type: string
+    email:
+      type: string
+    token:
+      type: strin

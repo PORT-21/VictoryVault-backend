@@ -1,0 +1,59 @@
+
+# TODO: фильтрация ачивок по полям схемы
+/:
+  post:
+    summary: Создаёт объект ачивки
+    description: Создаёт объект ачивки, возвращает id
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/achivments/Achivment.yaml'
+    responses:
+      '201':
+        description: "Объект успешно создан"
+        content:
+          application/json:
+            schema: 
+              $ref: './schemas/achivments/Achivment.yaml'
+            # examples:
+              # SchemaExample:
+                # $ref: '#/components/examples/AchivmentExample'
+    
+  get:
+    parameters:
+      - in: query
+        required: true
+        name: page
+        description: индекс страницы
+        schema:
+          type: integer
+
+      - in: query
+        required: true
+        name: size
+        description: кол-во элементов в ответе
+        schema:
+          type: integer
+          default: 20
+          maximum: 200
+          minimum: 1
+        example: 1
+
+      - in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+        example: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyRXh0SWQiOiIxNzUyMjY3NDM2MzMiLCJzdWIiOiIyMDIyMDYxNTA3NDk0OTE3ODAwMDEtYzk5YjU4YzE2NzEyNzVlYiIsImNsaWVudEV4dElkIjoiNTAxODk5MjA4MDE5IiwicGF5Q29udHJvbFVzZXJJZCI6bnVsbCwicGh5c2ljYWxDb25uZWN0aW9uIjoiaHR0cC1yZXN0LWljIiwic2Vzc2lvbklkIjoicktEWGVTdmQ2TFFmQ2VfOGt5SGRUdU9NNjgzdEpnRl9Ddm5nUW1QSGVDYWZkalJaQzQ2cSEtNDE1MDY3NTQyITE2NTcxNzc0NTE0ODUiLCJleHAiOjE2NzI0ODgwMDAsImlhdCI6MTY1NzE3NzU0NywiYnJhbmNoRXh0SWQiOiIzNTAwIiwiaXNPdHBGbGFnIjp0cnVlfQ.N5v5kg3S7e3gQCRbFnqJRkIhYom5mUjXpUMey3fpTuE
+
+    responses:
+      '200':
+        description: Пагинированный список ачивок юзера
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: './schemas/achivments/Achivment.yaml'

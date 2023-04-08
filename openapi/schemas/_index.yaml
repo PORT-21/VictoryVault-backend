@@ -1,0 +1,11 @@
+Acivment:
+  $ref: "./achivments/Achivment.yaml"
+
+AchivmentProperties:
+  $ref: "./achivments/AchivmentProperties.yaml"
+
+CreateAchivment:
+  $ref: './achivments/CreateAchivment.yaml'
+
+UpdateAchivment:
+  $ref: './achivments/UpdateAchivment.yaml'
