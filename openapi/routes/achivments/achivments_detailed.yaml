@@ -1,5 +1,6 @@
   get:
     summary: Возвращает ачивку по id
+    operationId: get_achivment
     description: Возвращает ачивку по указанному "schema_id"
     parameters:
       - in: path
@@ -21,6 +22,7 @@
     
   patch:
     summary: Обновляет поля ачивки
+    operationId: update_achivment
     description: Обновляет поля ачивки
     requestBody:
       required: true
@@ -34,6 +36,7 @@
     
   delete:
     summary: Удаляет ачивку по id
+    operationId: delete_acivment_by_id
     description: Удаляет ачивку по id
     parameters:
       - in: path

@@ -1,6 +1,7 @@
 
 post:
   summary: Создаёт объект ачивки
+  operationId: create_achivment
   description: Создаёт объект ачивки, возвращает id
   requestBody:
     required: true
@@ -20,6 +21,8 @@ post:
           #     $ref: '#/components/examples/AchivmentExample'
 
 get:
+  description: возвращает пагиринованный список ачивок
+  operationId: list_achivments
   parameters:
     - in: query
       required: true
