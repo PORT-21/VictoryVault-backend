@@ -1,0 +1,67 @@
+##### ONLY FOR VICTORY VAULT#####
+##### CREATE AND WRITE BY nomad #####
+
+name: Build and Deploy image to Server
+on:
+  push:
+    branches:
+      - add-ci
+
+jobs:
+  build-deploy:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+#### This is simple github ci/cd uses only ssh for deploy
+    - name: Remove old
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          rm -rf /home/hackaton/project/*
+
+
+    - name: Deploy Project to Server
+      uses: easingthemes/ssh-deploy@main
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.SSH_HOST }}
+        REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+        source: .
+        target: /home/hackaton/project/
+
+
+    - name: Remove old container
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          if [ $(docker inspect -f '{{.State.Running}}' victory-backend) = "true" ]; then docker stop victory-backend && docker rm -f victory-backend; else echo Container victory-backend has already been stopped; fi
+
+
+    - name: Build Docker
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+         cd /home/hackaton/project && docker build --tag victory-backend:latest -f Dockerfile.back .
+
+
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          docker create --ip 172.17.0.20 --name victory-backend --restart unless-stopped --publish=0.0.0.0:14431:14431/tcp victory-backend:latest && docker start victory-backend
+
