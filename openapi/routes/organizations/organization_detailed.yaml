@@ -1,0 +1,32 @@
+delete:
+  operationId: delete_organization
+  description: удаляет организацию по id
+  parameters:
+    - in: path
+      name: id  
+      required: true
+      schema:
+        type: integer
+        example: 1
+  responses:
+    '204':
+      description: организация удалена
+
+get:
+  operationId: get_organization_info
+  description: получить информацию об организации по id
+  parameters:
+    - in: path
+      name: id  
+      required: true
+      schema:
+        type: integer
+        example: 1
+  responses:
+    '200':
+      description: 
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: ../../schemas/organizations/RetrieveOrganization.yaml

@@ -11,31 +11,26 @@ servers:
 
 paths:
     /api/achivment:
-      $ref: './routes/achivments/achivments.yaml'
+      $ref: ./routes/achivments/achivments.yaml
 
     /api/achivment/{id}:
-      $ref: './routes/achivments/achivments_detailed.yaml'
+      $ref: ./routes/achivments/achivments_detailed.yaml
 
     /api/achivment/upload_icon:
-      post:
-        summary: Позволяет загрузить изображение в систему
-        description: Позволяет загрузить изображение ачивки. 
-        requestBody:
-          required: true
-          content:
-            image/png:
-              schema:
-                type: string
-                format: binary
-        responses:
-          '204':
-            description: Изображение загружено
+      $ref: ./routes/achivments/upload_icon.yaml
 
+    /api/organization:
+      $ref: ./routes/organizations/organizations.yaml
+
+    /api/organization/{id}:
+      $ref: ./routes/organizations/organization_detailed.yaml
+
+    /api/organization/upload_icon:
+      $ref: ./routes/organizations/upload_icon.yaml
+
+    /api/organization/change_password:
+      $ref: ./routes/organizations/change_password.yaml
 
 components:
-  # parameters:
-    # $ref: "./parameters/_index.yaml"
   schemas:
     $ref: "./schemas/_index.yaml"
-  # responses:
-    # $ref: "./responses/_index.yaml"

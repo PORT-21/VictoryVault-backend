@@ -1,11 +1,21 @@
-Acivment:
-  $ref: "./achivments/Achivment.yaml"
+Achivment:
+  $ref: ./achivments/Achivment.yaml
 
 AchivmentProperties:
-  $ref: "./achivments/AchivmentProperties.yaml"
+  $ref: ./achivments/AchivmentProperties.yaml
 
 CreateAchivment:
-  $ref: './achivments/CreateAchivment.yaml'
+  $ref: ./achivments/CreateAchivment.yaml
 
 UpdateAchivment:
-  $ref: './achivments/UpdateAchivment.yaml'
+  $ref: ./achivments/UpdateAchivment.yaml
+
+
+CreateOrganization:
+  $ref: ./organizations/CreateOrganization.yaml
+
+RetrieveOrganization:
+  $ref: ./organizations/RetrieveOrganization.yaml
+
+UpdateOrganization:
+  $ref: ./organizations/UpdateOrganization.yaml

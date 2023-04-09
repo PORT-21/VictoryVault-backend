@@ -1,0 +1,12 @@
+type: object
+allOf:
+  - $ref: ./OrganizationProperties.yaml
+  - required:
+    - login
+    - password
+  
+properties:
+  password:
+    description: пароль организации
+    type: string
+    example: TestPassword12345

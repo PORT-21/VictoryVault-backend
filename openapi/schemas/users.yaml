@@ -1,5 +1,0 @@
-openapi: 3.0.3
-
-paths:
-  /api/users/register:
-    post:

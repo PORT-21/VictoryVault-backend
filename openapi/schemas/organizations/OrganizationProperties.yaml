@@ -1,0 +1,12 @@
+type: object
+properties:
+  id:
+    type: integer
+    readOnly: true
+  icon_link:
+    type: string
+    readOnly: true
+  login:
+    type: string
+  email:
+    type: string

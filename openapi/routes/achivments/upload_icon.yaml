@@ -1,0 +1,19 @@
+post:
+  operationId: upload_achivment_icon
+  summary: Позволяет загрузить изображение в систему
+  description: Позволяет загрузить изображение ачивки. 
+  requestBody:
+    required: true
+    content:
+      image/png:
+        schema:
+          type: string
+          format: binary
+  responses:
+    '201':
+      description: Изображение загружено
+      content:
+        application/json:
+          schema:
+            type: string
+            description: ссылка на изображение
