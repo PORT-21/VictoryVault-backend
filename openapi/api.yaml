@@ -1,0 +1,36 @@
+openapi: 3.0.3
+
+info:
+  title: VictoryVault
+  description: Геймификация по венам и стенам
+  version: 0.0.1
+
+servers:
+  - url: https://server.com
+
+
+paths:
+    /api/achivment:
+      $ref: ./routes/achivments/achivments.yaml
+
+    /api/achivment/{id}:
+      $ref: ./routes/achivments/achivments_detailed.yaml
+
+    /api/achivment/upload_icon:
+      $ref: ./routes/achivments/upload_icon.yaml
+
+    /api/organization:
+      $ref: ./routes/organizations/organizations.yaml
+
+    /api/organization/{id}:
+      $ref: ./routes/organizations/organization_detailed.yaml
+
+    /api/organization/upload_icon:
+      $ref: ./routes/organizations/upload_icon.yaml
+
+    /api/organization/change_password:
+      $ref: ./routes/organizations/change_password.yaml
+
+components:
+  schemas:
+    $ref: "./schemas/_index.yaml"

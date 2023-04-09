@@ -1,0 +1,28 @@
+type: object
+properties:
+  id:
+    readOnly: true
+    type: integer
+  creator_id:
+    readOnly: true
+    type: integer
+    nullable: true
+  created_at:
+    readOnly: true
+    type: string
+    format: date-time
+  updated_at:
+    readOnly: true
+    type: string
+    format: date-time
+  title:
+    type: string
+  description:
+    type: string
+  
+  text_color:
+    type: string
+    default: "#FFFFFF"
+  bg_color:
+    type: string
+    default: "#000000"

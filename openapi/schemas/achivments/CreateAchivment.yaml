@@ -1,0 +1,21 @@
+
+type: object
+allOf:
+  - $ref: './AchivmentProperties.yaml'
+  - required:
+    - description
+    - title
+    - icon
+  
+properties:
+  icon:
+    type: string
+    format: binary
+
+# examples:
+#   AchivmentExample:
+#     summary: Схема ачивки. Пример
+#     value:
+#       id: 1
+#       name: OpenAPI-Schema
+#       description: Demo-achivment from SWAGGER

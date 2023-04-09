@@ -193,3 +193,5 @@ docs/_build/
 */__pycache__/*.pyc
 
 dist/
+
+frontend/*

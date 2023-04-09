@@ -1,0 +1,50 @@
+  get:
+    summary: Возвращает ачивку по id
+    operationId: get_achivment
+    description: Возвращает ачивку по указанному "schema_id"
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: Ачивка найдена
+        content:
+          application/json:
+            schema:
+              $ref: '../../schemas/achivments/Achivment.yaml'
+            # examples:
+              # SchemaExample:
+                # $ref: '#/components/examples/AchivmentExample'
+    
+  patch:
+    summary: Обновляет поля ачивки
+    operationId: update_achivment
+    description: Обновляет поля ачивки
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/achivments/UpdateAchivment.yaml'
+    responses:
+      '204':
+        description: поле успешно обновлено
+    
+  delete:
+    summary: Удаляет ачивку по id
+    operationId: delete_acivment_by_id
+    description: Удаляет ачивку по id
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '204':
+        description: "Ачивка успешно удалена"
