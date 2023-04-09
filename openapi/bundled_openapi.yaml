@@ -1,0 +1,309 @@
+openapi: 3.0.3
+info:
+  title: VictoryVault
+  description: Геймификация по венам и стенам
+  version: 0.0.1
+servers:
+  - url: 'https://server.com'
+paths:
+  /api/achivment:
+    post:
+      summary: Создаёт объект ачивки
+      operationId: create_achivment
+      description: 'Создаёт объект ачивки, возвращает id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Achivment'
+      responses:
+        '201':
+          description: Объект успешно создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Achivment'
+    get:
+      description: возвращает пагиринованный список ачивок
+      operationId: list_achivments
+      parameters:
+        - in: query
+          required: true
+          name: page
+          description: индекс страницы
+          schema:
+            type: integer
+        - in: query
+          required: true
+          name: size
+          description: кол-во элементов в ответе
+          schema:
+            type: integer
+            default: 20
+            maximum: 200
+            minimum: 1
+          example: 1
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          example: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyRXh0SWQiOiIxNzUyMjY3NDM2MzMiLCJzdWIiOiIyMDIyMDYxNTA3NDk0OTE3ODAwMDEtYzk5YjU4YzE2NzEyNzVlYiIsImNsaWVudEV4dElkIjoiNTAxODk5MjA4MDE5IiwicGF5Q29udHJvbFVzZXJJZCI6bnVsbCwicGh5c2ljYWxDb25uZWN0aW9uIjoiaHR0cC1yZXN0LWljIiwic2Vzc2lvbklkIjoicktEWGVTdmQ2TFFmQ2VfOGt5SGRUdU9NNjgzdEpnRl9Ddm5nUW1QSGVDYWZkalJaQzQ2cSEtNDE1MDY3NTQyITE2NTcxNzc0NTE0ODUiLCJleHAiOjE2NzI0ODgwMDAsImlhdCI6MTY1NzE3NzU0NywiYnJhbmNoRXh0SWQiOiIzNTAwIiwiaXNPdHBGbGFnIjp0cnVlfQ.N5v5kg3S7e3gQCRbFnqJRkIhYom5mUjXpUMey3fpTuE
+      responses:
+        '200':
+          description: Пагинированный список ачивок юзера
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Achivment'
+  '/api/achivment/{id}':
+    get:
+      summary: Возвращает ачивку по id
+      operationId: get_achivment
+      description: Возвращает ачивку по указанному "schema_id"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Ачивка найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Achivment'
+    patch:
+      summary: Обновляет поля ачивки
+      operationId: update_achivment
+      description: Обновляет поля ачивки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAchivment'
+      responses:
+        '204':
+          description: поле успешно обновлено
+    delete:
+      summary: Удаляет ачивку по id
+      operationId: delete_acivment_by_id
+      description: Удаляет ачивку по id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Ачивка успешно удалена
+  /api/achivment/upload_icon:
+    post:
+      operationId: upload_achivment_icon
+      summary: Позволяет загрузить изображение в систему
+      description: Позволяет загрузить изображение ачивки.
+      requestBody:
+        required: true
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '201':
+          description: Изображение загружено
+          content:
+            application/json:
+              schema:
+                type: string
+                description: ссылка на изображение
+  /api/organization:
+    post:
+      operationId: create_organization
+      description: создаёт организацию
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrganization'
+      responses:
+        '201':
+          desctiption: Организация успешно создана
+    patch:
+      operationId: update_organization_info
+      description: обновляет информацию об организации
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganization'
+        responses:
+          '204':
+            description: поле/поля успешно обновлены
+  '/api/organization/{id}':
+    delete:
+      operationId: delete_organization
+      description: удаляет организацию по id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: организация удалена
+    get:
+      operationId: get_organization_info
+      description: получить информацию об организации по id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: null
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RetrieveOrganization'
+  /api/organization/upload_icon:
+    post:
+      operationId: upload_organization_icon
+      summary: Позволяет загрузить изображение в систему
+      description: Позволяет загрузить изображение огранизации.
+      requestBody:
+        required: true
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '201':
+          description: Изображение загружено
+          content:
+            application/json:
+              schema:
+                type: string
+                description: ссылка на изображение
+  /api/organization/change_password:
+    post:
+      operationId: change_password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              name: new_password
+              example: NewTestPassword
+      responses:
+        '204':
+          description: пароль успешно изменён
+components:
+  schemas:
+    Achivment:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/AchivmentProperties'
+        - required:
+            - description
+            - title
+      properties:
+        icon_link:
+          type: string
+    AchivmentProperties:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          type: integer
+        creator_id:
+          readOnly: true
+          type: integer
+          nullable: true
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+        title:
+          type: string
+        description:
+          type: string
+        text_color:
+          type: string
+          default: '#FFFFFF'
+        bg_color:
+          type: string
+          default: '#000000'
+    CreateAchivment:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/AchivmentProperties'
+        - required:
+            - description
+            - title
+            - icon
+            - text_color
+            - bg_color
+      properties:
+        icon:
+          type: string
+          format: binary
+    UpdateAchivment:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/AchivmentProperties'
+    CreateOrganization:
+      type: object
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+              readOnly: true
+            icon_link:
+              type: string
+              readOnly: true
+            login:
+              type: string
+            email:
+              type: string
+        - required:
+            - login
+            - password
+      properties:
+        password:
+          description: пароль организации
+          type: string
+          example: TestPassword12345
+    RetrieveOrganization:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CreateOrganization/allOf/0'
+      properties: null
+    UpdateOrganization:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CreateOrganization/allOf/0'
+      properties: null

@@ -2,9 +2,11 @@ post:
   operationId: create_organization
   description: создаёт организацию
   requestBody:
-    application/json:
-      schema:
-        $ref: ../../schemas/organizations/CreateOrganization.yaml
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../schemas/organizations/CreateOrganization.yaml
   responses:
     '201':
       desctiption: Организация успешно создана
@@ -15,9 +17,11 @@ patch:
   operationId: update_organization_info
   description: обновляет информацию об организации
   requestBody:
-    application/json:
-      schema:
-        $ref: ../../schemas/organizations/UpdateOrganization.yaml
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../schemas/organizations/UpdateOrganization.yaml
     responses:
       '204':
         description: поле/поля успешно обновлены
