@@ -6,7 +6,8 @@ allOf:
     - description
     - title
     - icon
-  
+    - text_color
+    - bg_color
 properties:
   icon:
     type: string

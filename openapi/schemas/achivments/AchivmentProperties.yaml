@@ -18,8 +18,7 @@ properties:
   title:
     type: string
   description:
-    type: string
-  
+    type: string  
   text_color:
     type: string
     default: "#FFFFFF"
